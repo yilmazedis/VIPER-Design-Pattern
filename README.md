@@ -1,6 +1,4 @@
 # VIPER-Design-Pattern
 
-![](success.png =250x250)
-![](fail.png =250x250)
-
-<img src="success.png" width="48">
+<img src="success.png" width="250">
+<img src="fail.png" width="250">
