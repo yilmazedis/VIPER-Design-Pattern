@@ -13,16 +13,16 @@ import Foundation
 
 // https://jsonplaceholder.typicode.com/users
 
-protocol AnyInteractor {
-    var presenter: AnyPresenter? { get set}
+protocol AnyUserInteractor {
+    var presenter: AnyUserPresenter? { get set}
 
     func getUsers()
 
 }
 
-class UserInteractor: AnyInteractor {
+class UserInteractor: AnyUserInteractor {
 
-    var presenter: AnyPresenter?
+    var presenter: AnyUserPresenter?
 
     func getUsers() {
 
@@ -46,5 +46,8 @@ class UserInteractor: AnyInteractor {
         }
 
         task.resume()
+    }
+    deinit {
+        print("interactor")
     }
 }

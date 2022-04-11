@@ -15,24 +15,24 @@ enum FetchError: Error {
     case failed
 }
 
-protocol AnyPresenter {
-    var router: AnyRouter? { get set }
-    var interactor: AnyInteractor? { get set}
-    var view: AnyView? { get set }
+protocol AnyUserPresenter {
+    var router: AnyUserRouter? { get set }
+    var interactor: AnyUserInteractor? { get set}
+    var view: AnyUserView? { get set }
 
     func interactorDidFetchUsers(with result: Result<[User], Error>)
 }
 
-class UserPresenter: AnyPresenter {
-    var router: AnyRouter?
+class UserPresenter: AnyUserPresenter {
+    var router: AnyUserRouter?
 
-    var interactor: AnyInteractor? {
+    var interactor: AnyUserInteractor? {
         didSet {
             interactor?.getUsers()
         }
     }
 
-    var view: AnyView?
+    var view: AnyUserView?
 
 //    init() {
 //        interactor?.getUsers()
@@ -45,5 +45,8 @@ class UserPresenter: AnyPresenter {
         case.failure:
             view?.update(with: "Something went wrong!")
         }
+    }
+    deinit {
+        print("presenter")
     }
 }
