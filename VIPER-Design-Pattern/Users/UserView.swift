@@ -12,15 +12,15 @@ import UIKit
 // protocol
 // reference presenter
 
-protocol AnyView {
-    var presenter: AnyPresenter? { get set }
+protocol AnyUserView {
+    var presenter: AnyUserPresenter? { get set }
 
     func update(with users: [User])
     func update(with error: String)
 }
 
-class UserViewController: UIViewController, AnyView, UITableViewDelegate, UITableViewDataSource {
-    var presenter: AnyPresenter?
+class UserViewController: UIViewController, AnyUserView, UITableViewDelegate, UITableViewDataSource {
+    var presenter: AnyUserPresenter?
 
     private let tableView: UITableView = {
         let table = UITableView()
@@ -45,6 +45,7 @@ class UserViewController: UIViewController, AnyView, UITableViewDelegate, UITabl
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+        configureNavbar()
     }
 
     override func viewDidLayoutSubviews() {
@@ -52,6 +53,25 @@ class UserViewController: UIViewController, AnyView, UITableViewDelegate, UITabl
         tableView.frame = view.bounds
         label.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
         label.center = view.center
+    }
+
+    private func configureNavbar() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: #selector(addTapped))
+
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
+            UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .done, target: self, action: nil)
+        ]
+
+        navigationController?.navigationBar.tintColor = .brown
+    }
+
+    @objc func addTapped() {
+        let todoRouter = TodoRouter.start()
+
+        let initialVC = (todoRouter.entry)!
+
+        navigationController?.pushViewController(initialVC, animated: true)
     }
 
     func update(with users: [User]) {
@@ -82,6 +102,10 @@ class UserViewController: UIViewController, AnyView, UITableViewDelegate, UITabl
         cell.textLabel?.text = users[indexPath.row].name
 
         return cell
+    }
+
+    deinit {
+        print("view")
     }
 
 }

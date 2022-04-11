@@ -11,32 +11,32 @@ import UIKit
 // object
 // entry point, entrance of app
 
-typealias EntryPoint = AnyView & UIViewController
+typealias TodoEntryPoint = AnyTodoView & UIViewController
 
-protocol AnyRouter {
+protocol AnyTodoRouter {
 
-    var entry: EntryPoint? { get }
+    var entry: TodoEntryPoint? { get }
 
-    static func start() -> AnyRouter
+    static func start() -> AnyTodoRouter
 }
 
-class UserRouter: AnyRouter {
+class TodoRouter: AnyTodoRouter {
 
-    var entry: EntryPoint?
+    var entry: TodoEntryPoint?
 
 //    if you want to router another subrout
 //    func stop()
 //    func route(to destination)
 
-    static func start() -> AnyRouter {
-        let router = UserRouter()
+    static func start() -> AnyTodoRouter {
+        let router = TodoRouter()
 
 
         // Assign VIP
 
-        var view: AnyView = UserViewController()
-        var presenter: AnyPresenter = UserPresenter()
-        var interactor: AnyInteractor = UserInteractor()
+        var view: AnyTodoView = TodoViewController()
+        var presenter: AnyTodoPresenter = TodoPresenter()
+        var interactor: AnyTodoInteractor = TodoInteractor()
 
         view.presenter = presenter
         interactor.presenter = presenter
@@ -47,10 +47,8 @@ class UserRouter: AnyRouter {
         presenter.view = view
         presenter.interactor = interactor
 
-        router.entry = view as? EntryPoint
+        router.entry = view as? TodoEntryPoint
 
         return router
     }
-
-
 }
