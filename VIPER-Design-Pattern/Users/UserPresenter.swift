@@ -17,22 +17,22 @@ enum FetchError: Error {
 
 protocol AnyUserPresenter {
     var router: AnyUserRouter? { get set }
-    var interactor: AnyUserInteractor? { get set}
+    var interactor: AnyUserInteractor? { get set }
     var view: AnyUserView? { get set }
+    var users: [User]? { get set }
 
     func interactorDidFetchUsers(with result: Result<[User], Error>)
 }
 
 class UserPresenter: AnyUserPresenter {
+    var users: [User]?
     var router: AnyUserRouter?
-
+    var view: AnyUserView?
     var interactor: AnyUserInteractor? {
         didSet {
             interactor?.getUsers()
         }
     }
-
-    var view: AnyUserView?
 
 //    init() {
 //        interactor?.getUsers()
@@ -45,8 +45,5 @@ class UserPresenter: AnyUserPresenter {
         case.failure:
             view?.update(with: "Something went wrong!")
         }
-    }
-    deinit {
-        print("presenter")
     }
 }

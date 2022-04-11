@@ -17,7 +17,6 @@ protocol AnyTodoInteractor {
     var presenter: AnyTodoPresenter? { get set}
 
     func getTodos()
-
 }
 
 class TodoInteractor: AnyTodoInteractor {
@@ -46,8 +45,5 @@ class TodoInteractor: AnyTodoInteractor {
         }
 
         task.resume()
-    }
-    deinit {
-        print("interactor")
     }
 }

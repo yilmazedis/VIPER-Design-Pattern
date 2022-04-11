@@ -36,8 +36,6 @@ class TodoViewController: UIViewController, AnyTodoView, UITableViewDelegate, UI
         return label
     }()
 
-    var todos: [Todo] = []
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBlue
@@ -60,7 +58,7 @@ class TodoViewController: UIViewController, AnyTodoView, UITableViewDelegate, UI
 
         navigationItem.rightBarButtonItems = [
             //UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
-            UIBarButtonItem(image: UIImage(systemName: "download"), style: .done, target: self,
+            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self,
                             action: #selector(addTapped))
         ]
 
@@ -74,7 +72,7 @@ class TodoViewController: UIViewController, AnyTodoView, UITableViewDelegate, UI
     func update(with todos: [Todo]) {
         print("Starting")
         DispatchQueue.main.async {
-            self.todos = todos
+            self.presenter?.todos = todos
             self.tableView.reloadData()
             self.tableView.isHidden = false
         }
@@ -82,7 +80,7 @@ class TodoViewController: UIViewController, AnyTodoView, UITableViewDelegate, UI
 
     func update(with error: String) {
         DispatchQueue.main.async {
-            self.todos = []
+            self.presenter?.todos = []
             self.label.text = error
             self.tableView.isHidden = true
             self.label.isHidden = false
@@ -90,19 +88,12 @@ class TodoViewController: UIViewController, AnyTodoView, UITableViewDelegate, UI
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todos.count
+        return presenter?.todos?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = todos[indexPath.row].title
-
+        cell.textLabel?.text = presenter?.todos?[indexPath.row].title
         return cell
     }
-
-    deinit {
-        print("view")
-    }
-
 }

@@ -36,8 +36,6 @@ class UserViewController: UIViewController, AnyUserView, UITableViewDelegate, UI
         return label
     }()
 
-    var users: [User] = []
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBlue
@@ -77,7 +75,7 @@ class UserViewController: UIViewController, AnyUserView, UITableViewDelegate, UI
     func update(with users: [User]) {
         print("Starting")
         DispatchQueue.main.async {
-            self.users = users
+            self.presenter?.users = users
             self.tableView.reloadData()
             self.tableView.isHidden = false
         }
@@ -85,7 +83,7 @@ class UserViewController: UIViewController, AnyUserView, UITableViewDelegate, UI
 
     func update(with error: String) {
         DispatchQueue.main.async {
-            self.users = []
+            self.presenter?.users = []
             self.label.text = error
             self.tableView.isHidden = true
             self.label.isHidden = false
@@ -93,19 +91,14 @@ class UserViewController: UIViewController, AnyUserView, UITableViewDelegate, UI
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return presenter?.users?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = users[indexPath.row].name
+        cell.textLabel?.text = presenter?.users?[indexPath.row].name
 
         return cell
     }
-
-    deinit {
-        print("view")
-    }
-
 }

@@ -47,7 +47,4 @@ class UserInteractor: AnyUserInteractor {
 
         task.resume()
     }
-    deinit {
-        print("interactor")
-    }
 }

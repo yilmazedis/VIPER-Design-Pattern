@@ -24,15 +24,8 @@ class TodoRouter: AnyTodoRouter {
 
     var entry: TodoEntryPoint?
 
-//    if you want to router another subrout
-//    func stop()
-//    func route(to destination)
-
     static func start() -> AnyTodoRouter {
         let router = TodoRouter()
-
-
-        // Assign VIP
 
         var view: AnyTodoView = TodoViewController()
         var presenter: AnyTodoPresenter = TodoPresenter()
@@ -40,8 +33,6 @@ class TodoRouter: AnyTodoRouter {
 
         view.presenter = presenter
         interactor.presenter = presenter
-
-//        interactor.getUsers()
 
         presenter.router = router
         presenter.view = view
