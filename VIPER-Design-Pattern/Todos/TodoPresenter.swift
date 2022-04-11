@@ -17,22 +17,28 @@ protocol AnyTodoPresenter {
     var view: AnyTodoView? { get set }
 
     func interactorDidFetchTodos(with result: Result<[Todo], Error>)
+    func fetchData()
 }
 
 class TodoPresenter: AnyTodoPresenter {
     var router: AnyTodoRouter?
 
-    var interactor: AnyTodoInteractor? {
-        didSet {
-            interactor?.getTodos()
-        }
-    }
+    var interactor: AnyTodoInteractor?
+//    {
+//        didSet {
+//            interactor?.getTodos()
+//        }
+//    }
 
     var view: AnyTodoView?
 
 //    init() {
 //        interactor?.getUsers()
 //    }
+
+    func fetchData() {
+        interactor?.getTodos()
+    }
 
     func interactorDidFetchTodos(with result: Result<[Todo], Error>) {
         switch result {
@@ -42,6 +48,7 @@ class TodoPresenter: AnyTodoPresenter {
             view?.update(with: "Something went wrong!")
         }
     }
+
     deinit {
         print("presenter")
     }

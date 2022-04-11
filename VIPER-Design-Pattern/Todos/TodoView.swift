@@ -59,15 +59,16 @@ class TodoViewController: UIViewController, AnyTodoView, UITableViewDelegate, UI
         //navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil)
 
         navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
-            UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .done, target: self, action: nil)
+            //UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
+            UIBarButtonItem(image: UIImage(systemName: "download"), style: .done, target: self,
+                            action: #selector(addTapped))
         ]
 
         navigationController?.navigationBar.tintColor = .brown
     }
 
     @objc func addTapped() {
-        
+        presenter?.fetchData()
     }
 
     func update(with todos: [Todo]) {
