@@ -22,6 +22,7 @@ protocol AnyUserPresenter {
     var users: [User]? { get set }
 
     func interactorDidFetchUsers(with result: Result<[User], Error>)
+    func showTodo()
 }
 
 class UserPresenter: AnyUserPresenter {
@@ -45,5 +46,9 @@ class UserPresenter: AnyUserPresenter {
         case.failure:
             view?.update(with: "Something went wrong!")
         }
+    }
+    
+    func showTodo() {
+        router?.showTodo()
     }
 }

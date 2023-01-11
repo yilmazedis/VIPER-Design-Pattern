@@ -26,7 +26,7 @@ class UserInteractor: AnyUserInteractor {
 
     func getUsers() {
 
-        print("fetching")
+        print("Start Fetching Users")
 
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/users") else { return }
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in

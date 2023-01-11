@@ -12,6 +12,18 @@ import UIKit
 // protocol
 // reference presenter
 
+protocol Pizza: AnyObject {
+    func yap()
+}
+
+class Anne {
+    
+    weak var delegate: Pizza?
+    
+    
+    
+}
+
 protocol AnyUserView {
     var presenter: AnyUserPresenter? { get set }
 
@@ -65,11 +77,7 @@ class UserViewController: UIViewController, AnyUserView, UITableViewDelegate, UI
     }
 
     @objc func addTapped() {
-        let todoRouter = TodoRouter.start()
-
-        let initialVC = (todoRouter.entry)!
-
-        navigationController?.pushViewController(initialVC, animated: true)
+        presenter?.showTodo()
     }
 
     func update(with users: [User]) {

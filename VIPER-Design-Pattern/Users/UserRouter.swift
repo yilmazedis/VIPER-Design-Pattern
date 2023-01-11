@@ -18,6 +18,7 @@ protocol AnyUserRouter {
     var entry: UserEntryPoint? { get }
 
     static func start() -> AnyUserRouter
+    func showTodo()
 }
 
 class UserRouter: AnyUserRouter {
@@ -51,4 +52,13 @@ class UserRouter: AnyUserRouter {
 
         return router
     }
+    
+    func showTodo() {
+        let todoRouter = TodoRouter.start()
+
+        let initialVC = (todoRouter.entry)!
+
+        entry?.navigationController?.pushViewController(initialVC, animated: true)
+    }
+    
 }

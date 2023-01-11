@@ -25,7 +25,7 @@ class TodoInteractor: AnyTodoInteractor {
 
     func getTodos() {
 
-        print("fetching")
+        print("Start Fetching Todos")
 
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/todos") else { return }
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
